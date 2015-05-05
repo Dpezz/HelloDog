@@ -1,4 +1,5 @@
 hellodog
 ========
 
-A Symfony project created on May 1, 2015, 2:39 am.
+Online store dog food.
+A Symfony project created on May 1, 2015, 12:00 pm.
