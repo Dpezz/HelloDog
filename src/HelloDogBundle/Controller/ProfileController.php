@@ -35,7 +35,7 @@ class ProfileController extends Controller
 
         
         if($this->get('security.context')->isgranted('ROLE_ADMIN'))
-            return $this->redirect($this->generateUrl('demo_shop'));
+            return $this->redirect($this->generateUrl('demo_key'));
         else 
 			return $this->redirect($this->generateUrl('demo_shop'));
     }

@@ -9,3 +9,7 @@ profile:
 shop:
     resource: "@HelloDogBundle/Controller/ShopController.php"
     type:     annotation
+
+admin:
+    resource: "@HelloDogBundle/Controller/AdminController.php"
+    type:     annotation

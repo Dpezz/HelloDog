@@ -1,0 +1,42 @@
+{% extends "::base.html.twig" %}
+
+{% block title "Bienvenido " ~ app.user.username %}
+
+{% block body %}
+    {% embed 'HelloDogBundle:Layout:navbar.html.twig' %}
+      {% block navbar %}
+        {{ parent() }}
+      {% endblock %}
+    {% endembed %}
+
+    <div class="container">
+      <h2 class="page-header">
+        Generar Códigos
+      </h2>
+
+      <form action="{{ path('generate_key') }}" method="POST">
+        <div class="form-group">
+          <label>Nº Códigos</label>
+          <input type="number" class="form-control" name="cantidad" min="0" max="1000000">
+        </div>
+
+        <button type="submit" class="btn btn-dark">Generar Códigos</button>
+      </form>
+    
+      <hr>
+      <div class="alert alert-warning" role="alert">
+      <h5>Códigos:</h5>
+      <hr>
+      {% for key in keys %}
+        <span class="badge">
+        <strong>{{key.fecha|date('d/m/Y')}}&emsp;:&emsp;</strong>{{key.keys|length}}
+        </span>
+
+        {% for value in key.keys %}
+          &emsp;{{value}}&emsp;
+        {% endfor %}
+        <hr>
+      {% endfor %}
+      </div> 
+    </div>
+{% endblock %}

@@ -1,6 +1,6 @@
 {% extends "::base.html.twig" %}
 
-{% block title "Bienvenido" %}
+{% block title "Bienvenido " ~ app.user.username %}
 
 {% block body %}
     {% embed 'HelloDogBundle:Layout:navbar.html.twig' %}
@@ -11,7 +11,7 @@
 
     {# incrustar web de bootic #}
     <div class="video">
-  	  <iframe width="100%" height="800" src="http://dpezz.bootic.net/products" frameborder="0" allowfullscreen></iframe>
+  	  <iframe width="100%" height="800" src="http://dpezz.bootic.net/admin" frameborder="0" allowfullscreen></iframe>
   	</div>
-
+	
 {% endblock %}

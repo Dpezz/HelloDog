@@ -91,13 +91,15 @@ class DefaultController extends Controller
      */
     public function codigoAction(Request $request)
     {
-        $codigos = array('abc123','abc120','abc121','abc122','HDMI1234-B');
-
+        //$codigos = array('abc123','abc120','abc121','abc122','HDMI1234-B');
         $codigo = $request->get('codigo');
-        if(in_array($codigo,$codigos)){
-            $request->getSession()->set('codigo',$codigo);
-            $request->getSession()->set('flag',1);
-            return $this->redirect($this->generateUrl('demo_login'));
+
+        foreach ($this->getJsonKey() as $key => $value) {        
+            if(in_array($codigo,$value['keys'])){
+                $request->getSession()->set('codigo',$codigo);
+                $request->getSession()->set('flag',1);
+                return $this->redirect($this->generateUrl('demo_login'));
+            }
         }
         $request->getSession()->set('flag',-2);
         return $this->redirect($this->generateUrl('demo_index'));
@@ -131,7 +133,7 @@ class DefaultController extends Controller
 
                 //$this->sendEmail($username,$email);//enviar email usuario
                 //$this->sendEmailAdmin($username,$email,$fono);//enviar email admin
-                $request->getSession()->set('flag',1);
+                $request->getSession()->set('flag',2);
             }else{
                 $request->getSession()->set('flag',-2);
             }
@@ -139,5 +141,20 @@ class DefaultController extends Controller
             $request->getSession()->set('flag',-2);
         }
         return $this->redirect($this->generateUrl('demo_login'));
+    }
+
+    private function getJsonKey(){
+        try{
+            $url = "keys/keys.json";
+            if(file_exists($url))
+            {
+                $file = file_get_contents($url);
+                $json = json_decode($file,true);
+                return $json['key'];
+            }
+        }catch(exception $e){
+            //....
+        }
+        return null;
     }
 }
