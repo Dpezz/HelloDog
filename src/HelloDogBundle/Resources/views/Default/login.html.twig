@@ -1,0 +1,109 @@
+{% extends "::base.html.twig" %}
+
+{% block title "Bienvenido" %}
+
+{% block stylesheets %}
+	{{parent()}}
+    <link rel="stylesheet" href="{{ asset('bundles/hellodog/css/signin.css')}}">
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-md-6 col-sm-6 col-xs-2"></div>
+		<div class="col-md-4 col-sm-4 col-xs-8">
+			<h1 class="tex-center">
+				<img src="{{ asset('bundles/hellodog/images/logo.png') }}" width="90%">
+				<hr style="border-top: 1px solid transparent;">
+				
+				<h2><strong>Lorem ipsum dolor sit amet</strong></h2>							
+			  	<p style="color:#444;font-size:18px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+			  	<p style="color:#444;font-size:18px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+			  	<div class="modal-footer" style="border-top: 1px solid transparent;">
+					<a href="" class="btn btn-dark" data-toggle="modal" data-target="#signin">INGRESAR&nbsp;<i class="glyphicon glyphicon-menu-right"></i></a>
+				</div>
+
+				<h6><em>Lorem ipsum dolor sit amet, <a href="" data-toggle="modal" data-target="#signup">Registrate</a></em></h6>
+
+				{% if error %}
+					<p class="text-danger"><i class="glyphicon glyphicon-remove"></i>&nbsp;Email y contraseña incorrectos, vuelva a intentar.</p>
+				{% endif %}
+				{% if flag == -2 %}
+					<p class="text-danger"><i class="glyphicon glyphicon-remove"></i>&nbsp;<strong>Cancelado!</strong>&nbsp;no se pudo guardar los cambios.</p>
+				{% elseif flag == 1 %}
+					<p class="text-success"><i class="glyphicon glyphicon-check"></i>&nbsp;<strong>Finalizado!</strong>&nbsp;cambios realizados con exito.</p>
+				{% endif %}
+			</h1>
+		</div>
+	</div>
+
+	<!-- Modal signIN -->
+	<div class="modal fade bs-example-modal-sm" id="signin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  	<div class="modal-dialog modal-sm">
+		    <div class="modal-content">
+		      	<div class="modal-header">
+		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        	<h4 class="modal-title" id="myModalLabel"><i class="glyphicon glyphicon-log-in"></i>&nbsp;Iniciar Sesión</h4>
+		      	</div>
+		      	<div class="modal-body">
+			        <form action="{{ path('_demo_security_check') }}" method="POST">
+					  	<div class="form-group">
+					    	<input type="email" class="form-control" id="username" name="_username" value="{{last_username}}" placeholder="Email">
+					  	</div>
+
+					  	<div class="form-group">
+					    	<input type="password" class="form-control" id="password" name="_password" placeholder="Contraseña">
+					  	</div>
+
+				      	<div class="modal-footer">
+				        	<button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>&nbsp;Cerrar</button>
+				        	<button type="submit" class="btn btn-dark"><i class="glyphicon glyphicon-log-in"></i>&nbsp;Iniciar Sesión</button>
+			     	 	</div>
+		     	 	</form>
+	     	 	</div>
+		    </div>
+	  	</div>
+	</div>
+
+	<!-- Modal signUP -->
+	<div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  	<div class="modal-dialog">
+	    <div class="modal-content">
+	      	<div class="modal-header">
+	        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        	<h4 class="modal-title" id="myModalLabel"><i class="glyphicon glyphicon-log-in"></i>&nbsp;Registrarse</h4>
+	      	</div>
+	      	<div class="modal-body">
+	      		<form action="{{ path('create') }}" method="POST">
+				  	<div class="form-group">
+				  		<label>Nombre</label>
+				    	<input type="text" class="form-control" name="username" placeholder="Usuario">
+				  	</div>
+				  	<hr>
+				  	<div class="form-group">
+				  		<label>Email</label>
+				    	<input type="email" class="form-control" name="email" placeholder="Email">
+				  	</div>
+
+				  	<div class="form-group">
+				    	<input type="email" class="form-control" name="confirm_email" placeholder="Confirmar Email">
+				  	</div>
+				  	<hr>
+				  	<div class="form-group">
+				  		<label>Contraseña</label>
+				    	<input type="password" class="form-control" name="password" placeholder="Contraseña">
+				  	</div>
+
+				  	<div class="form-group">
+				    	<input type="password" class="form-control" name="confirm_password" placeholder="Confirmar Contraseña">
+				  	</div>
+
+			      	<div class="modal-footer">
+			        	<button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>&nbsp;Cerrar</button>
+			        	<button type="submit" class="btn btn-dark"><i class="glyphicon glyphicon-floppy-disk"></i>&nbsp;Registrar</button>
+		     	 	</div>
+	     	 	</form>
+	      	</div>
+	    </div>
+	  	</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,11 @@
+default:
+    resource: "@HelloDogBundle/Controller/DefaultController.php"
+    type:     annotation
+
+profile:
+    resource: "@HelloDogBundle/Controller/ProfileController.php"
+    type:     annotation
+
+shop:
+    resource: "@HelloDogBundle/Controller/ShopController.php"
+    type:     annotation

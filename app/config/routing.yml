@@ -1,0 +1,2 @@
+_hellodog_demo:
+    resource: "@HelloDogBundle/Resources/config/routing.yml"

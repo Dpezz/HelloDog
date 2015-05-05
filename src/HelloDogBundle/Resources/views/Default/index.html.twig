@@ -1,0 +1,43 @@
+{% extends "::base.html.twig" %}
+
+{% block title "Bienvenido" %}
+
+{% block stylesheets %}
+	{{parent()}}
+    <link rel="stylesheet" href="{{ asset('bundles/hellodog/css/cover.css')}}">
+{% endblock %}
+
+{% block body %}
+{# JUMBOTRON HEADER #}
+	<div class="site-wrapper">
+	  	<div class="site-wrapper-inner">
+	        <div class="cover-container">
+			 	<div class="inner cover">
+					
+					<img src="{{ asset('bundles/hellodog/images/logo.png') }}" width="60%">
+					<hr style="border-top: 1px solid transparent;">
+					
+					<form action="{{ path('check_codigo') }}" method="POST">
+						<div class="row">
+							<div class="col-md-4 col-sm-4 col-xs-4"></div>
+							<div class="col-md-4 col-sm-4 col-xs-4">
+								<div class="form-group">
+								    <input type="text" class="form-control" name="codigo" placeholder="HDMI1234-B" autofocus required>
+							  	</div>
+						  	</div>
+							<div class="col-md-4 col-sm-4 col-xs-4"></div>
+					  	</div>
+						 
+					  	<p style="color:#444;font-size:14px;">Lorem ipsum dolor sit amet,<br> consectetur adipiscing elit, ipsum dolor sit amet.</p>
+								
+						<button class="btn btn-dark">INGRESAR&nbsp;<i class="glyphicon glyphicon-menu-right"></i></button>
+					</form>
+					{% if flag == -2 %}
+						<p class="text-danger"><i class="glyphicon glyphicon-remove"></i>&nbsp;Código ingresado incorrecto, vuelva a intentar.</p>
+					{% endif %}
+					
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
