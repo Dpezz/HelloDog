@@ -8,7 +8,6 @@
 {% endblock %}
 
 {% block body %}
-{# JUMBOTRON HEADER #}
 	<div class="site-wrapper">
 	  	<div class="site-wrapper-inner">
 	        <div class="cover-container">
@@ -32,6 +31,7 @@
 								
 						<button class="btn btn-dark">INGRESAR&nbsp;<i class="glyphicon glyphicon-menu-right"></i></button>
 					</form>
+					
 					{% if flag == -2 %}
 						<p class="text-danger"><i class="glyphicon glyphicon-remove"></i>&nbsp;Código ingresado incorrecto, vuelva a intentar.</p>
 					{% endif %}

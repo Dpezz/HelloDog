@@ -1,0 +1,47 @@
+{% extends "::base.html.twig" %}
+
+{% block title "Restablecer" %}
+
+{% block body %}
+    
+    <div class="container">
+
+      {% embed 'HelloDogBundle:Layout:alert.html.twig' %}
+        {% block alert %}
+          {{ parent() }}
+        {% endblock %}
+      {% endembed %}
+      
+      <h3 class="page-header"><i class="glyphicon glyphicon-lock"></i>&nbsp;Restablecer Contraseña</h3>
+      <div class="alert alert-danger">
+        Ingrese correo electrónico de su cuenta y registre su nueva contraseña.
+      </div>
+
+	    <form action="{{ path('secured_restore',{'key': key }) }}" method="POST">
+	    	
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" class="form-control" name="email">
+        </div>
+
+        <hr>
+
+        <div class="form-group">
+          <label for="exampleInputPassword1">Contraseña</label>
+          <input type="password" class="form-control" name="password" placeholder="Contraseña">
+        </div>
+
+        <div class="form-group">
+          <input type="password" class="form-control" name="ConfirmPassword" placeholder="Confirmar Contraseña">
+        </div>
+
+        <div class="modal-footer">
+          <a href="{{ path('demo_profile') }}" type="button" class="btn btn-dark"><i class="glyphicon glyphicon-arrow-left"></i>&nbsp;Volver</a>
+          
+          <button type="submit" class="btn btn-dark"><i class="glyphicon glyphicon-floppy-disk"></i>&nbsp;Guardar</button>
+        </div>
+
+	    </form>
+  	</div>
+
+{% endblock %}

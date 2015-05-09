@@ -24,19 +24,54 @@
       </form>
     
       <hr>
-      <div class="alert alert-warning" role="alert">
-      <h5>Códigos:</h5>
-      <hr>
-      {% for key in keys %}
-        <span class="badge">
-        <strong>{{key.fecha|date('d/m/Y')}}&emsp;:&emsp;</strong>{{key.keys|length}}
-        </span>
+      
 
-        {% for value in key.keys %}
-          &emsp;{{value}}&emsp;
-        {% endfor %}
-        <hr>
-      {% endfor %}
-      </div> 
+      <table class="table table-hover">
+        <thead>
+          <tr class="active">
+            <th>#</th>
+            <th>Fecha</th>
+            <th>Cantidad</th>
+            <th>Códigos</th>
+            <th>Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for value in keys %}
+          <tr>
+            <th><span class="badge">{{loop.index}}</th>
+            <th><span class="label label-warning">{{value.fecha|date('d/m/Y')}}</span></th>
+            <th><span class="label label-danger">{{value.keys|length}}</span></th>
+            
+            <th>
+              {% for item in value.keys %}
+              &emsp;<small>{{item}}</small>&emsp;
+              {% endfor %}
+            </th>
+            <th><a href="" title="Eliminar" data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash text-danger"></i></a></th>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
     </div>
+
+    <!-- Modal -->
+  <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Eliminar Códigos</h4>
+        </div>
+        <div class="modal-body">
+          ¿Seguro que desea eliminar los códigos?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>&nbsp;Cerrar</button>
+          <button type="button" class="btn btn-dark"><i class="glyphicon glyphicon-trash"></i>&nbsp;Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}

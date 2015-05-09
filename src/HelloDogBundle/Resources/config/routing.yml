@@ -13,3 +13,7 @@ shop:
 admin:
     resource: "@HelloDogBundle/Controller/AdminController.php"
     type:     annotation
+
+secured:
+    resource: "@HelloDogBundle/Controller/SecuredController.php"
+    type:     annotation

@@ -1,0 +1,49 @@
+{% extends "::base.html.twig" %}
+
+{% block title "Solicitar" %}
+
+{% block body %}
+    {% if app.user %}
+        {% embed 'HelloDogBundle:Layout:navbar.html.twig' %}
+          {% block navbar %}
+            {{ parent() }}
+          {% endblock %}
+        {% endembed %}
+    {% endif %}
+    
+    <div class="container">
+
+      {% embed 'HelloDogBundle:Layout:alert.html.twig' %}
+        {% block alert %}
+          {{ parent() }}
+        {% endblock %}
+      {% endembed %}
+
+      <h3 class="page-header">Solicitar Contraseña</h3>  
+      <div class="alert alert-danger" role="alert">Ingrese el correo electrónico para enviarle el código de restablecimiento de contraseña</div>
+
+      {% if app.user %}
+        <form action="{{ path('edit_resend') }}" method="POST">
+      {% else %}
+        <form action="{{ path('edit_resend_public') }}" method="POST">
+      {% endif %}
+
+        <div class="form-group">
+          <label>Email</label>
+          {% if app.user %}
+            <input type="email" class="form-control" name="email" value="{{ app.user.email }}" placeholder="Email">
+          {% else %}
+            <input type="email" class="form-control" name="email" placeholder="Email">
+          {% endif %}
+        </div>
+            
+        <div class="modal-footer">
+          <a href="{{ path('demo_profile') }}" type="button" class="btn btn-dark"><i class="glyphicon glyphicon-arrow-left"></i>&nbsp;Volver</a>
+          
+          <button type="submit" class="btn btn-dark"><i class="glyphicon glyphicon-send"></i>&nbsp;Enviar</button>
+        </div>
+
+	    </form>
+
+  	</div>
+{% endblock %}

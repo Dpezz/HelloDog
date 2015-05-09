@@ -48,10 +48,10 @@ class DefaultController extends Controller
         $flag = $request->getSession()->get('flag');
         $request->getSession()->set('flag',-1);
 
-        //return new Response($request->getSession()->get('codigo'));
         if($request->getSession()->get('codigo')){
-            if($request->getSession()->get('username'))
-            {return new RedirectResponse($this->generateUrl('demo_profile'));}
+            if($request->getSession()->get('username')){
+                return new RedirectResponse($this->generateUrl('demo_profile'));
+            }
         }else{
             return new RedirectResponse($this->generateUrl('demo_index'));
         }
@@ -91,7 +91,6 @@ class DefaultController extends Controller
      */
     public function codigoAction(Request $request)
     {
-        //$codigos = array('abc123','abc120','abc121','abc122','HDMI1234-B');
         $codigo = $request->get('codigo');
 
         foreach ($this->getJsonKey() as $key => $value) {        
@@ -123,7 +122,6 @@ class DefaultController extends Controller
                 $user->setUsername($username);
                 $user->setEmail($email);
                 $user->setPassword($request->get('password'));
-
                 $user->setCreateAt(new \DateTime('now'));
                 $user->setRole("ROLE_USER");
 

@@ -26,8 +26,8 @@
         <li class="active dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{app.user.username|capitalize}} <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="#"><i class="glyphicon glyphicon-cog"></i>&nbsp;Cuenta</a></li>
-            <li><a href="#"><i class="glyphicon glyphicon-lock"></i>&nbsp;Contraseña</a></li>
+            <li><a href="{{path('profile_secured_account')}}"><i class="glyphicon glyphicon-cog"></i>&nbsp;Cuenta</a></li>
+            <li><a href="{{path('profile_secured_password')}}"><i class="glyphicon glyphicon-lock"></i>&nbsp;Contraseña</a></li>
             <li class="divider"></li>
             <li><a href="{{ path('_demo_logout') }}"><i class="glyphicon glyphicon-log-out"></i>&nbsp;Salir</a></li>
           </ul>

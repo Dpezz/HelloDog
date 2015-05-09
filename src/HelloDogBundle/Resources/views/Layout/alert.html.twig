@@ -1,0 +1,36 @@
+{% block alert %}
+	{% if flag == 1 %}
+		<div class="alert alert-success alert-dismissible" role="alert">
+		  	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		  	<i class="fa fa-check-circle"></i>&nbsp;<strong>Finalizado!</strong>&nbsp;cambios realizados con exito.
+		</div>
+	{% elseif flag == -2 %}
+		<div class="alert alert-danger alert-dismissible" role="alert">
+	  		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		  	<i class="fa fa-times-circle"></i>&nbsp;<strong>Cancelado!</strong>&nbsp;ocurrió un error al guardar los cambios.
+		</div>
+	{% elseif flag == -3 %}
+		<div class="alert alert-danger alert-dismissible" role="alert">
+	  		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		  	<i class="fa fa-times-circle"></i>&nbsp;<strong>Cancelado!</strong>&nbsp;Contraseña ingresada incorrecta, vuelva a intentar.
+		</div>
+
+	{% elseif flag == -4 %}
+		<div class="alert alert-danger alert-dismissible" role="alert">
+	  		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		  	<i class="fa fa-times-circle"></i>&nbsp;<strong>Cancelado!</strong>&nbsp;Email ingresado no existe, vuelva a intentar.
+		</div>
+
+	{% elseif flag == -5 %}
+		<div class="alert alert-danger alert-dismissible" role="alert">
+	  		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		  	<i class="fa fa-times-circle"></i>&nbsp;<strong>Cancelado!</strong>&nbsp;Email ingresado ya existe, vuelva a intentar.
+		</div>
+
+	{% elseif flag == 2 %}
+		<div class="alert alert-success alert-dismissible" role="alert">
+		  	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		  	<i class="fa fa-times-circle"></i>&nbsp;<strong>Finalizado!</strong>&nbsp;Se envió el codigo a su correo electrónico
+		</div>
+	{% endif %}
+{% endblock %}
