@@ -7,58 +7,63 @@
 	<link rel="stylesheet" href="{{ asset('bundles/hellodog/dist/css/footer-sticky.css')}}">
 {% endblock %}
 
+{% block javascripts %}
+	{{ parent() }}
+    <script src="{{ asset('bundles/hellodog/dist/js/validate_controller.js') }}"></script>
+{% endblock %}
+
 {% block body %}
-<div class="container">
-	<div class="row">
-		
-		<div class="col-md-6 col-sm-6">
-			<h1 class="text-center">
-				<hr class="hidden-xs" style="border-top: 50px solid transparent;">
-				<img class="hidden-xs" src="{{ asset('bundles/hellodog/dist/images/hellodog.png') }}" width="100%">
-			</h1>
-		</div>
+	<div class="container">
+		<div class="row">
+			
+			<div class="col-md-6 col-sm-6">
+				<h1 class="text-center">
+					<hr class="hidden-xs" style="border-top: 50px solid transparent;">
+					<img class="hidden-xs" src="{{ asset('bundles/hellodog/dist/images/hellodog.png') }}" width="100%">
+				</h1>
+			</div>
 
-		<div class="col-md-5 col-sm-5">
-			<h1 class="text-center">
-				<h4 class="text-center">
-					<img class="visible-xs" src="{{ asset('bundles/hellodog/dist/images/logo.png') }}" width="90%" style="padding-left:15%">
-				</h4>
-				<hr class="hidden-xs" style="border-top: 50px solid transparent;">
-				
-				<h1 class="page-header"><strong>Iniciar Sesión</strong></h1>
-				<form action="{{ path('_demo_security_check') }}" method="POST">
-				  	<div class="form-group">
-				  		
-				    	<input type="email" class="form-control" id="username" name="_username" value="{{last_username}}" placeholder="Email">
-				  	</div>
+			<div class="col-md-5 col-sm-5">
+				<h1 class="text-center">
+					<h4 class="text-center">
+						<img class="visible-xs" src="{{ asset('bundles/hellodog/dist/images/logo.png') }}" width="90%" style="padding-left:15%">
+					</h4>
+					<hr class="hidden-xs" style="border-top: 50px solid transparent;">
+					
+					<h1 class="page-header"><strong>Iniciar Sesión</strong></h1>
+					<form action="{{ path('_demo_security_check') }}" method="POST">
+					  	<div class="form-group">
+					  		
+					    	<input type="email" class="form-control" id="username" name="_username" value="{{last_username}}" placeholder="Email">
+					  	</div>
 
-				  	<div class="form-group">
-				  		
-				    	<input type="password" class="form-control" id="password" name="_password" placeholder="Contraseña">
-				  	</div>
+					  	<div class="form-group">
+					  		
+					    	<input type="password" class="form-control" id="password" name="_password" placeholder="Contraseña">
+					  	</div>
 
-				  	<a href="{{ path('secured_resend') }}"><small>¿Olvidaste tu contraseña?</small></a>
+					  	<a href="{{ path('secured_resend') }}"><small>¿Olvidaste tu contraseña?</small></a>
 
-				  	<h6><em>Lorem ipsum dolor sit amet, <a href="" data-toggle="modal" data-target="#signup">Regístrate</a></em></h6>
+					  	<h6><em>Lorem ipsum dolor sit amet, <a href="" data-toggle="modal" data-target="#signup">Regístrate</a></em></h6>
 
-			      	<div class="modal-footer" style="border-top: 1px solid transparent;">
-						<button type="submit" class="btn btn-dark">INGRESAR&nbsp;<i class="glyphicon glyphicon-menu-right"></i></button>
-					</div>
-	     	 	</form>
+				      	<div class="modal-footer" style="border-top: 1px solid transparent;">
+							<button type="submit" class="btn btn-dark">INGRESAR&nbsp;<i class="glyphicon glyphicon-menu-right"></i></button>
+						</div>
+		     	 	</form>
 
-				{% if error %}
-					<p class="text-danger"><i class="glyphicon glyphicon-remove"></i>&nbsp;Email y contraseña incorrectos, vuelva a intentar.</p>
-				{% endif %}
-				
-				{% if flag == -2 %}
-					<p class="text-danger"><i class="glyphicon glyphicon-remove"></i>&nbsp;<strong>Cancelado!</strong>&nbsp;no se pudo guardar los cambios.</p>
-				{% elseif flag == 2 %}
-					<p class="text-success"><i class="glyphicon glyphicon-check"></i>&nbsp;<strong>Finalizado!</strong>&nbsp;cambios realizados con exito.</p>
-				{% endif %}
-			</h1>
+					{% if error %}
+						<p class="text-danger"><i class="glyphicon glyphicon-remove"></i>&nbsp;Email y contraseña incorrectos, vuelva a intentar.</p>
+					{% endif %}
+					
+					{% if flag == -2 %}
+						<p class="text-danger"><i class="glyphicon glyphicon-remove"></i>&nbsp;<strong>Cancelado!</strong>&nbsp;no se pudo guardar los cambios.</p>
+					{% elseif flag == 2 %}
+						<p class="text-success"><i class="glyphicon glyphicon-check"></i>&nbsp;<strong>Finalizado!</strong>&nbsp;cambios realizados con exito.</p>
+					{% endif %}
+				</h1>
+			</div>
 		</div>
 	</div>
-</div>
 
 	{% embed 'HelloDogBundle:Layout:footer.html.twig' %}
 	  {% block footer %}
@@ -69,43 +74,59 @@
 	<!-- Modal signUP -->
 	<div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	  	<div class="modal-dialog">
-	    <div class="modal-content">
-	      	<div class="modal-header">
-	        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        	<h4 class="modal-title" id="myModalLabel"><i class="glyphicon glyphicon-log-in"></i>&nbsp;Registrarse</h4>
-	      	</div>
-	      	<div class="modal-body">
-	      		<form action="{{ path('create') }}" method="POST">
-				  	<div class="form-group">
-				  		<label>Nombre</label>
-				    	<input type="text" class="form-control" name="username" placeholder="Usuario">
-				  	</div>
-				  	<hr>
-				  	<div class="form-group">
-				  		<label>Email</label>
-				    	<input type="email" class="form-control" name="email" placeholder="Email">
-				  	</div>
+		    <div class="modal-content" ng-app="validate" ng-controller="signinForm">
+		      	<div class="modal-header">
+		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        	<h4 class="modal-title" id="myModalLabel"><i class="glyphicon glyphicon-log-in"></i>&nbsp;Registrarse</h4>
+		      	</div>
+		      	<div class="modal-body">
+		      		<form name="userForm" ng-submit="submitForm()" novalidate>
+		      			{# USERNAME #}
+					  	<div class="form-group" ng-class="{ 'has-error' : userForm.username.$invalid && !userForm.username.$pristine }">
+					  		<label>Nombre</label>
+					    	<input type="text" class="form-control" name="username" placeholder="Usuario" ng-model="user.username" required>
+					    	<p ng-show="userForm.username.$invalid && !userForm.username.$pristine" class="help-block">You name is required.</p>
+					  	</div>
 
-				  	<div class="form-group">
-				    	<input type="email" class="form-control" name="confirm_email" placeholder="Confirmar Email">
-				  	</div>
-				  	<hr>
-				  	<div class="form-group">
-				  		<label>Contraseña</label>
-				    	<input type="password" class="form-control" name="password" placeholder="Contraseña">
-				  	</div>
+					  	<hr>
 
-				  	<div class="form-group">
-				    	<input type="password" class="form-control" name="confirm_password" placeholder="Confirmar Contraseña">
-				  	</div>
+					  	{# EMAIL #}
+					  	<div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+					  		<label>Email</label>
+					    	<input type="email" class="form-control" name="email" placeholder="Email" ng-model="user.email" required>
+					    	<p ng-show="userForm.email.$invalid && !userForm.email.$pristine" class="help-block">Enter a valid email.</p>
+					  	</div>
 
-			      	<div class="modal-footer">
-			        	<button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>&nbsp;Cerrar</button>
-			        	<button type="submit" class="btn btn-dark"><i class="glyphicon glyphicon-floppy-disk"></i>&nbsp;Registrar</button>
-		     	 	</div>
-	     	 	</form>
-	      	</div>
-	    </div>
+					  	{# CONFIRM EMAIL #}
+					  	<div class="form-group" ng-class="{ 'has-error' : userForm.confirmEmail.$invalid && !userForm.confirmEmail.$pristine }">
+					    	<input type="email" class="form-control" name="confirmEmail" ng-model="user.confirmEmail" repeat-password="email" placeholder="Confirmar Email" required>
+					    	<p ng-show="userForm.confirmEmail.$invalid && !userForm.confirmEmail.$pristine" class="help-block">Enter a valid email.</p>
+					    	<p class="text-danger" ng-show="userForm.confirmEmail.$dirty && userForm.confirmEmail.$error.dontMatch">Emails don't match!</p>
+					  	</div>
+
+					  	<hr>
+
+					  	{# PASSWORD #}
+					  	<div class="form-group" ng-class="{ 'has-error' : userForm.password.$invalid && !userForm.password.$pristine }">
+					  		<label>Contraseña</label>
+					    	<input type="password" class="form-control" name="password" ng-model="user.password" placeholder="Contraseña" required>
+					    	<p ng-show="userForm.password.$invalid && !userForm.password.$pristine" class="help-block">Enter a valid email.</p>
+					  	</div>
+
+					  	{# CONFIRM PASSWORD #}
+					  	<div class="form-group" ng-class="{ 'has-error' : userForm.confirmPassword.$invalid && !userForm.confirmPassword.$pristine }">
+					    	<input type="password" class="form-control" name="confirmPassword" ng-model="user.confirmPassword" repeat-password="password" placeholder="Confirmar Contraseña" required>
+					    	<p ng-show="userForm.confirmPassword.$invalid && !userForm.confirmPassword.$pristine" class="help-block">Enter a valid email.</p>
+					    	<p class="text-danger" ng-show="userForm.confirmPassword.$dirty && userForm.confirmPassword.$error.dontMatch">Passwords don't match!</p>
+					  	</div>
+
+				      	<div class="modal-footer">
+				        	<button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>&nbsp;Cerrar</button>
+				        	<button type="submit" class="btn btn-dark" ng-disabled="userForm.$invalid"><i class="glyphicon glyphicon-floppy-disk"></i>&nbsp;Registrar</button>
+			     	 	</div>
+		     	 	</form>
+		      	</div>
+		    </div>
 	  	</div>
 	</div>
 {% endblock %}

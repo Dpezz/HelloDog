@@ -105,11 +105,13 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/create", name="create")
+     * @Route("/create_user", name="create")
      * @Method("POST")
      */
     public function createUser(Request $request)
     {
+        $data = json_decode($request->getContent(), true);
+        $request->request->replace($data);
         $flag = 0;
         try{
             $email = $request->get('email');
@@ -132,13 +134,16 @@ class DefaultController extends Controller
                 //$this->sendEmail($username,$email);//enviar email usuario
                 //$this->sendEmailAdmin($username,$email,$fono);//enviar email admin
                 $request->getSession()->set('flag',2);
+                return new Response(1);
             }else{
                 $request->getSession()->set('flag',-2);
+                return new Response(0);
             }
         }catch(Exception $e){
             $request->getSession()->set('flag',-2);
         }
-        return $this->redirect($this->generateUrl('demo_login'));
+        return new Response(0);
+        //return $this->redirect($this->generateUrl('demo_login'));
     }
 
     private function getJsonKey(){

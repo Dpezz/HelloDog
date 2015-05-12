@@ -103,7 +103,7 @@ class SecuredController extends Controller
                         $user->setPassword($request->get('password'));
                         $em->flush();
                         //ENVIO DE EMAIL
-                        $this->sendEmail($user->getUsername(),$user->getEmail());
+                        //$this->sendEmail($user->getUsername(),$user->getEmail());
                         $request->getSession()->set('flag',1);
                     }
                 }else{
@@ -155,9 +155,11 @@ class SecuredController extends Controller
     /**
     * @Route("/profile/password", name="edit_password")
     * @Method("POST")
-    * @Template()
     */
     public function editPasswordAction(Request $request){
+        $data = json_decode($request->getContent(), true);
+        $request->request->replace($data);
+
         try{
             $id = $this->getUser()->getId();
             $em = $this->getDoctrine()->getManager();
@@ -167,24 +169,27 @@ class SecuredController extends Controller
 
                 if(password_verify($passwordActual, $user->getPassword()))
                 {
-                    $user->setPassword($request->get('password_new'));
+                    $user->setPassword($request->get('newPassword'));
                     $em->flush();
 
                     //Se envia correo Informando del cambio de Contraseña
-                    $this->sendEmail($this->getUser()->getUsername(),$this->getUser()->getEmail());
+                    //$this->sendEmail($this->getUser()->getUsername(),$this->getUser()->getEmail());
 
                     $request->getSession()->set('flag',1);
+                    return new Response(1);
                 }else{
                    $request->getSession()->set('flag',-3);//password es incorrecta
+                   return new Response(-2);
                 }
             }else{
                $request->getSession()->set('flag',-2);//No se encuentra usuario
+               return new Response(-2);
             }
         }catch(Exception $e){
             $request->getSession()->set('flag',-2);//Error de procedimiento
         }
-
-        return new RedirectResponse($this->generateUrl('profile_secured_password'));
+        return new Response(-2);
+        //return new RedirectResponse($this->generateUrl('profile_secured_password'));
     }
 
     /**
@@ -212,7 +217,7 @@ class SecuredController extends Controller
                     }
                 }
                 //enviar codigo de activacion
-                $this->sendEmailResend($email,$emailSecured);
+                //$this->sendEmailResend($email,$emailSecured);
                 $request->getSession()->set('flag',2);
             }else{
                 $request->getSession()->set('flag',-4);
@@ -220,7 +225,10 @@ class SecuredController extends Controller
         }catch(Exception $e){
             $request->getSession()->set('flag',-2);
         }
-        return new RedirectResponse($this->generateUrl('profile_secured_resend'));
+        if($this->getUser())
+            return new RedirectResponse($this->generateUrl('profile_secured_resend'));
+        else
+            return new RedirectResponse($this->generateUrl('secured_resend'));
     }
 
 
