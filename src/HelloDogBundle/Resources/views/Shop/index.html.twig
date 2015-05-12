@@ -1,0 +1,52 @@
+{% extends "::base.html.twig" %}
+
+{% block title "Bienvenido" %}
+
+{% block stylesheets %}
+	{{parent()}}
+	<link rel="stylesheet" href="{{ asset('bundles/hellodog/dist/css/footer-sticky.css')}}">
+{% endblock %}
+
+
+{% block body %}
+	{% embed 'HelloDogBundle:Layout:navbar.html.twig' %}
+	  {% block navbar %}
+	    {{ parent() }}
+	  {% endblock %}
+	{% endembed %}
+
+
+	<div class="container">
+		<div class="row">
+			
+
+			<div class="col-md-6 col-sm-6">
+				<h1 class="text-center">
+					
+					<hr style="border-top: 1px solid transparent;">
+					
+					<h1><strong>Bienvenido a HelloDog</strong></h1>							
+				  	<p style="color:#444;font-size:18px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+				  	<p style="color:#444;font-size:18px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+				  	<div class="modal-footer" style="border-top: 1px solid transparent;">
+						<a type="button" href="{{ path('shop_buy') }}" class="btn btn-yellow">COMPRAR&nbsp;<i class="glyphicon glyphicon-menu-right"></i></a>
+					</div>
+				</h1>
+			</div>
+
+			<div class="col-md-6 col-sm-6 col-xs-2 hidden-xs">
+				<h1>&emsp;</h1>
+				<hr style="border-top: 10px solid transparent;">
+				<img src="{{ asset('bundles/hellodog/dist/images/hellodog_3.png') }}" width="100%">
+			</div>
+
+		</div>
+	</div>
+
+	{% embed 'HelloDogBundle:Layout:footer.html.twig' %}
+	  {% block footer %}
+	    {{ parent() }}
+	  {% endblock %}
+	{% endembed %}
+{% endblock %}
