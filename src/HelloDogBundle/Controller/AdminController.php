@@ -55,6 +55,24 @@ class AdminController extends Controller
         return array();
     }
 
+     /**
+     * @Route("/delete_keys")
+     * @Method("POST")
+     */
+    public function deleteKey(Request $request){
+        $data = json_decode($request->getContent(), true);
+        $request->request->replace($data);
+
+        try{
+            $position = $request->get('position');
+            $this->deleteJsonKey($position);
+            $request->getSession()->set('flag',1);
+            return new Response(1);
+        }catch(Exception $e){
+            $request->getSession()->set('flag',-2);
+            return new Response(0);
+        }
+    }
     /**
      * @Route("/generate_keys", name="generate_key")
      * @Method("POST")
@@ -131,5 +149,18 @@ class AdminController extends Controller
 	    	//....
 	    }
 	    return null;
+    }
+
+    private function deleteJsonKey($id){
+        $url = "keys/keys.json";
+        if(file_exists($url)){
+            $file = file_get_contents($url);
+            $json = json_decode($file,true);
+
+            unset($json['key'][$id]); 
+
+            $json = json_encode($json,true);
+            file_put_contents($url, $json);
+        }
     }
 }

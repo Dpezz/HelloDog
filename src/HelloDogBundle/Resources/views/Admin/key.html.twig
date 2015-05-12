@@ -2,7 +2,13 @@
 
 {% block title "Bienvenido " ~ app.user.username %}
 
+ {% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/hellodog/dist/js/key_controller.js') }}"></script>
+{% endblock %}
+
 {% block body %}
+<div ng-app="keys" ng-controller="key">
     {% embed 'HelloDogBundle:Layout:navbar.html.twig' %}
       {% block navbar %}
         {{ parent() }}
@@ -10,6 +16,12 @@
     {% endembed %}
 
     <div class="container">
+      {% embed 'HelloDogBundle:Layout:alert.html.twig' %}
+        {% block alert %}
+          {{ parent() }}
+        {% endblock %}
+      {% endembed %}
+
       <h2 class="page-header">
         Generar Códigos
       </h2>
@@ -25,34 +37,39 @@
     
       <hr>
       
-
-      <table class="table table-hover">
-        <thead>
-          <tr class="active">
-            <th>#</th>
-            <th>Fecha</th>
-            <th>Cantidad</th>
-            <th>Códigos</th>
-            <th>Eliminar</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for value in keys %}
-          <tr>
-            <th><span class="badge">{{loop.index}}</th>
-            <th><span class="label label-warning">{{value.fecha|date('d/m/Y')}}</span></th>
-            <th><span class="label label-danger">{{value.keys|length}}</span></th>
-            
-            <th>
-              {% for item in value.keys %}
-              &emsp;<small>{{item}}</small>&emsp;
-              {% endfor %}
-            </th>
-            <th><a href="" title="Eliminar" data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash text-danger"></i></a></th>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr class="active">
+              <th>#</th>
+              <th>Fecha</th>
+              <th>Cantidad</th>
+              <th>Códigos</th>
+              <th>Eliminar</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for value in keys %}
+            <tr>
+              <th><span class="badge">{{loop.index}}</th>
+              <th><span class="label label-warning">{{value.fecha|date('d/m/Y')}}</span></th>
+              <th><span class="label label-danger">{{value.keys|length}}</span></th>
+              
+              <th>
+                {% for item in value.keys %}
+                &emsp;<small>{{item}}</small>&emsp;
+                {% endfor %}
+              </th>
+              <th>
+                {% if loop.index != 1 %}
+                <a href="" title="Eliminar" data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash text-danger" ng-click="delete('{{loop.index -1}}','{{value.fecha|date('d/m/Y')}}')"></i></a>
+                {% endif %}
+              </th>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
 
     </div>
 
@@ -65,13 +82,14 @@
           <h4 class="modal-title" id="myModalLabel">Eliminar Códigos</h4>
         </div>
         <div class="modal-body">
-          ¿Seguro que desea eliminar los códigos?
+          <h5 class="text-center">¿Seguro que desea eliminar los códigos del <strong>{[{ name }]}</strong>?</h5>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>&nbsp;Cerrar</button>
-          <button type="button" class="btn btn-dark"><i class="glyphicon glyphicon-trash"></i>&nbsp;Eliminar</button>
+          <button type="button" class="btn btn-dark" ng-click="save()"><i class="glyphicon glyphicon-trash"></i>&nbsp;Eliminar</button>
         </div>
       </div>
     </div>
   </div>
+</div>
 {% endblock %}

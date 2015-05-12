@@ -4,25 +4,47 @@
 
 {% block stylesheets %}
 	{{parent()}}
-    <link rel="stylesheet" href="{{ asset('bundles/hellodog/css/signin.css')}}">
+	<link rel="stylesheet" href="{{ asset('bundles/hellodog/dist/css/footer-sticky.css')}}">
 {% endblock %}
 
 {% block body %}
+<div class="container">
 	<div class="row">
-		<div class="col-md-6 col-sm-6 col-xs-2"></div>
-		<div class="col-md-4 col-sm-4 col-xs-8">
-			<h1 class="tex-center">
-				<img src="{{ asset('bundles/hellodog/images/logo.png') }}" width="90%">
-				<hr style="border-top: 1px solid transparent;">
-				
-				<h2><strong>Lorem ipsum dolor sit amet</strong></h2>							
-			  	<p style="color:#444;font-size:18px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-			  	<p style="color:#444;font-size:18px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-			  	<div class="modal-footer" style="border-top: 1px solid transparent;">
-					<a href="" class="btn btn-dark" data-toggle="modal" data-target="#signin">INGRESAR&nbsp;<i class="glyphicon glyphicon-menu-right"></i></a>
-				</div>
+		
+		<div class="col-md-6 col-sm-6">
+			<h1 class="text-center">
+				<hr class="hidden-xs" style="border-top: 50px solid transparent;">
+				<img class="hidden-xs" src="{{ asset('bundles/hellodog/dist/images/hellodog.png') }}" width="100%">
+			</h1>
+		</div>
 
-				<h6><em>Lorem ipsum dolor sit amet, <a href="" data-toggle="modal" data-target="#signup">Registrate</a></em></h6>
+		<div class="col-md-5 col-sm-5">
+			<h1 class="text-center">
+				<h4 class="text-center">
+					<img class="visible-xs" src="{{ asset('bundles/hellodog/dist/images/logo.png') }}" width="90%" style="padding-left:15%">
+				</h4>
+				<hr class="hidden-xs" style="border-top: 50px solid transparent;">
+				
+				<h1 class="page-header"><strong>Iniciar Sesión</strong></h1>
+				<form action="{{ path('_demo_security_check') }}" method="POST">
+				  	<div class="form-group">
+				  		
+				    	<input type="email" class="form-control" id="username" name="_username" value="{{last_username}}" placeholder="Email">
+				  	</div>
+
+				  	<div class="form-group">
+				  		
+				    	<input type="password" class="form-control" id="password" name="_password" placeholder="Contraseña">
+				  	</div>
+
+				  	<a href="{{ path('secured_resend') }}"><small>¿Olvidaste tu contraseña?</small></a>
+
+				  	<h6><em>Lorem ipsum dolor sit amet, <a href="" data-toggle="modal" data-target="#signup">Regístrate</a></em></h6>
+
+			      	<div class="modal-footer" style="border-top: 1px solid transparent;">
+						<button type="submit" class="btn btn-dark">INGRESAR&nbsp;<i class="glyphicon glyphicon-menu-right"></i></button>
+					</div>
+	     	 	</form>
 
 				{% if error %}
 					<p class="text-danger"><i class="glyphicon glyphicon-remove"></i>&nbsp;Email y contraseña incorrectos, vuelva a intentar.</p>
@@ -36,37 +58,13 @@
 			</h1>
 		</div>
 	</div>
+</div>
 
-	<!-- Modal signIN -->
-	<div class="modal fade bs-example-modal-sm" id="signin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	  	<div class="modal-dialog modal-sm">
-		    <div class="modal-content">
-		      	<div class="modal-header">
-		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        	<h4 class="modal-title" id="myModalLabel"><i class="glyphicon glyphicon-log-in"></i>&nbsp;Iniciar Sesión</h4>
-		      	</div>
-		      	<div class="modal-body">
-			        <form action="{{ path('_demo_security_check') }}" method="POST">
-					  	<div class="form-group">
-					    	<input type="email" class="form-control" id="username" name="_username" value="{{last_username}}" placeholder="Email">
-					  	</div>
-
-					  	<div class="form-group">
-					    	<input type="password" class="form-control" id="password" name="_password" placeholder="Contraseña">
-					  	</div>
-
-					  	<a href="{{ path('secured_resend') }}"><small>¿Olvidaste tu contraseña?</small></a>
-
-				      	<div class="modal-footer">
-				        	<button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>&nbsp;Cerrar</button>
-				        	
-				        	<button type="submit" class="btn btn-dark"><i class="glyphicon glyphicon-log-in"></i>&nbsp;Iniciar Sesión</button>
-			     	 	</div>
-		     	 	</form>
-	     	 	</div>
-		    </div>
-	  	</div>
-	</div>
+	{% embed 'HelloDogBundle:Layout:footer.html.twig' %}
+	  {% block footer %}
+	    {{ parent() }}
+	  {% endblock %}
+	{% endembed %}
 
 	<!-- Modal signUP -->
 	<div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

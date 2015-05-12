@@ -19,11 +19,21 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class ShopController extends Controller
 {
     /**
-     * @Route("/", name="demo_shop")
+     * @Route("/", name="shop_index")
      * @Method("GET")
      * @Template()
      */
     public function indexAction(Request $request)
+    {    
+        return array();
+    }
+
+    /**
+     * @Route("/buy", name="shop_buy")
+     * @Method("GET")
+     * @Template()
+     */
+    public function buyAction(Request $request)
     {    
         return array();
     }
