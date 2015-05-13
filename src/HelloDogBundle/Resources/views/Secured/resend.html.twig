@@ -46,4 +46,11 @@
 	    </form>
 
   	</div>
+
+    {% embed 'HelloDogBundle:Layout:footer.html.twig' %}
+      {% block footer %}
+        {{ parent() }}
+      {% endblock %}
+    {% endembed %}
+  
 {% endblock %}

@@ -2,11 +2,6 @@
 
 {% block title "Bienvenido" %}
 
-{% block stylesheets %}
-	{{parent()}}
-	<link rel="stylesheet" href="{{ asset('bundles/hellodog/dist/css/footer-sticky.css')}}">
-{% endblock %}
-
 {% block javascripts %}
 	{{ parent() }}
     <script src="{{ asset('bundles/hellodog/dist/js/validate_controller.js') }}"></script>
@@ -19,7 +14,7 @@
 			<div class="col-md-6 col-sm-6">
 				<h1 class="text-center">
 					<hr class="hidden-xs" style="border-top: 50px solid transparent;">
-					<img class="hidden-xs" src="{{ asset('bundles/hellodog/dist/images/hellodog.png') }}" width="100%">
+					<img class="hidden-xs" src="{{ asset('bundles/hellodog/dist/images/hellodog_2.png') }}" width="100%" height="250px">
 				</h1>
 			</div>
 
@@ -30,7 +25,7 @@
 					</h4>
 					<hr class="hidden-xs" style="border-top: 50px solid transparent;">
 					
-					<h1 class="page-header"><strong>Iniciar Sesión</strong></h1>
+					<h1 class="page-header" style="font-family:'marujo'"><strong>Iniciar Sesión</strong></h1>
 					<form action="{{ path('_demo_security_check') }}" method="POST">
 					  	<div class="form-group">
 					  		
