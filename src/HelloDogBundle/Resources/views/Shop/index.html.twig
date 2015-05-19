@@ -4,9 +4,8 @@
 
 {% block stylesheets %}
 	{{parent()}}
-	<link rel="stylesheet" href="{{ asset('bundles/hellodog/dist/css/footer-sticky.css')}}">
+    <link rel="stylesheet" href="{{ asset('bundles/hellodog/dist/css/footer-sticky.css')}}">
 {% endblock %}
-
 
 {% block body %}
 	{% embed 'HelloDogBundle:Layout:navbar.html.twig' %}
@@ -25,9 +24,22 @@
 					
 					<hr style="border-top: 1px solid transparent;">
 					
-					<h1><strong>Bienvenido a HelloDog</strong></h1>							
-				  	<p style="color:#444;font-size:18px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-				  	<p style="color:#444;font-size:18px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+					<h1><strong>Hola, Soy Dog!!</strong></h1>							
+				  	<p style="color:#444;font-size:15px;">
+					Hace un tiempo me adoptaron, mis protectores al principio no sabían
+					con qué alimentarme, Primero fue comida casera o de retail. Mmmm
+					rica!!, pero nada de saludable para un perro con estilo como Yo. Bueno,
+					al poco tiempo supieron de los alimentos balanceados y ricos en
+					proteínas y por fin me alimenté con calidad.</p>
+					<p style="color:#444;font-size:15px;">
+					Pero se encontraron con un problema, el costo de mi nueva
+					alimentación. Buscando encontraron un sitio donde comprar Bueno,
+					Barato, Rápido e Informado. HelloDog!!. Un sitio sólo para nosotros,
+					donde podrás conseguir el mejor alimento del mercado, con excelentes
+					precios, con buen despacho y post venta.
+
+					Un beneficio de pocos, entra y Regístrate en el Club HelloDog, te
+					sorprenderá!!</p>
 
 				  	<div class="modal-footer" style="border-top: 1px solid transparent;">
 						<a type="button" href="{{ path('shop_buy') }}" class="btn btn-yellow">COMPRAR&nbsp;<i class="glyphicon glyphicon-menu-right"></i></a>

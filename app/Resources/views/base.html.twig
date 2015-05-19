@@ -5,11 +5,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>HelloDog - {% block title %}Bienvenido!{% endblock %}</title>
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="icon" type="image/x-icon" href="{{ asset('bundles/hellodog/dist/images/logo_sm.png') }}" />
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset('bundles/hellodog/dist/css/bootstrap.css')}}">
             <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet" type="text/css">
-            <link rel="stylesheet" href="{{ asset('bundles/hellodog/dist/css/footer-sticky.css')}}">
         {% endblock %}
     </head>
     <body>

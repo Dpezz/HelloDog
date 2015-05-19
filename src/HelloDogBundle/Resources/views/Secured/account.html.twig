@@ -2,6 +2,11 @@
 
 {% block title "Cuenta" %}
 
+{% block stylesheets %}
+	{{parent()}}
+    <link rel="stylesheet" href="{{ asset('bundles/hellodog/dist/css/footer-sticky.css')}}">
+{% endblock %}
+
 {% block body %}
     {% embed 'HelloDogBundle:Layout:navbar.html.twig' %}
       {% block navbar %}

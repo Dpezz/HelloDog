@@ -2,6 +2,11 @@
 
 {% block title "Solicitar" %}
 
+{% block stylesheets %}
+  {{parent()}}
+    <link rel="stylesheet" href="{{ asset('bundles/hellodog/dist/css/footer-sticky.css')}}">
+{% endblock %}
+
 {% block body %}
     {% if app.user %}
         {% embed 'HelloDogBundle:Layout:navbar.html.twig' %}
