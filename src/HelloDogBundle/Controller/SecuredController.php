@@ -103,7 +103,7 @@ class SecuredController extends Controller
                         $user->setPassword($request->get('password'));
                         $em->flush();
                         //ENVIO DE EMAIL
-                        //$this->sendEmail($user->getUsername(),$user->getEmail());
+                        $this->sendEmail($user->getUsername(),$user->getEmail());
                         $request->getSession()->set('flag',1);
                     }
                 }else{
@@ -173,7 +173,7 @@ class SecuredController extends Controller
                     $em->flush();
 
                     //Se envia correo Informando del cambio de Contraseña
-                    //$this->sendEmail($this->getUser()->getUsername(),$this->getUser()->getEmail());
+                    $this->sendEmail($this->getUser()->getUsername(),$this->getUser()->getEmail());
 
                     $request->getSession()->set('flag',1);
                     return new Response(1);
@@ -217,7 +217,7 @@ class SecuredController extends Controller
                     }
                 }
                 //enviar codigo de activacion
-                //$this->sendEmailResend($email,$emailSecured);
+                $this->sendEmailResend($email,$emailSecured);
                 $request->getSession()->set('flag',2);
             }else{
                 $request->getSession()->set('flag',-4);

@@ -131,7 +131,7 @@ class DefaultController extends Controller
                 $em->persist($user);
                 $em->flush();
 
-                //$this->sendEmail($username,$email);//enviar email usuario
+                $this->sendEmail($username,$email);//enviar email usuario
                 //$this->sendEmailAdmin($username,$email,$fono);//enviar email admin
                 $request->getSession()->set('flag',2);
                 return new Response(1);
