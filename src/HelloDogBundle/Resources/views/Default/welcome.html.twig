@@ -1,0 +1,143 @@
+{% extends "::base.html.twig" %}
+
+{% block title "Bienvenido" %}
+
+{% block stylesheets %}
+	{{parent()}}
+    <link rel="stylesheet" href="{{ asset('bundles/hellodog/dist/css/images.css')}}">
+    <link rel="stylesheet" href="{{ asset('bundles/hellodog/dist/css/footer-sticky.css')}}">
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+    <script src="{{ asset('bundles/hellodog/dist/js/validate_controller.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+	<div class="welcome">
+		<div class="container">
+			<hr style="border-top: 1px solid transparent;">
+			<div class="row">
+				
+				<div class="col-md-6 col-sm-6">
+					<h1 class="text-center">
+						
+						<hr style="border-top: 1px solid transparent;">
+						
+						<h1><strong>Hola, Soy Dog!!</strong></h1>							
+					  	<p style="color:#444;font-size:15px;">
+						Hace un tiempo me adoptaron, mis protectores al principio no sabían
+						con qué alimentarme, Primero fue comida casera o de retail. Mmmm
+						rica!!, pero nada de saludable para un perro con estilo como Yo. Bueno,
+						al poco tiempo supieron de los alimentos balanceados y ricos en
+						proteínas y por fin me alimenté con calidad.</p>
+						<p style="color:#444;font-size:15px;">
+						Pero se encontraron con un problema, el costo de mi nueva
+						alimentación. Buscando encontraron un sitio donde comprar Bueno,
+						Barato, Rápido e Informado. HelloDog!!. Un sitio sólo para nosotros,
+						donde podrás conseguir el mejor alimento del mercado, con excelentes
+						precios, con buen despacho y post venta.
+
+						Un beneficio de pocos, entra y Regístrate en el Club HelloDog, te
+						sorprenderá!!</p>
+
+					  	<div class="modal-footer" style="border-top: 1px solid transparent;">
+					  		<h6 class="text-center pull-left"><a href="{{ path('demo_login') }}"><i class="glyphicon glyphicon-arrow-left"></i>&nbsp;Volver</a></h6>
+							<a type="button" href="" class="btn btn-yellow" data-toggle="modal" data-target="#signup">Registrar&nbsp;<i class="glyphicon glyphicon-menu-right"></i></a>
+						</div>
+					</h1>
+
+					{% if flag == -2 %}
+						<hr>
+						<p class="text-danger"><i class="glyphicon glyphicon-remove"></i>&nbsp;<strong>Cancelado!</strong>&nbsp;no se pudo guardar los cambios.</p>
+					{% elseif flag == 2 %}
+						<hr>
+						<p class="text-success"><i class="glyphicon glyphicon-check"></i>&nbsp;<strong>Finalizado!</strong>&nbsp;cambios realizados con exito.
+						<br>Eres parte del Club Hellodog.
+						<br>Entra en <a href="{{ path('demo_login') }}">Hellodog.cl</a></p>
+					{% endif %}
+				</div>
+
+				<div class="col-md-6 col-sm-6 col-xs-2 hidden-xs">
+					<h1>&emsp;</h1>
+					<hr style="border-top: 10px solid transparent;">
+					<img src="{{ asset('bundles/hellodog/dist/images/hellodog_3.png') }}" width="100%">
+				</div>
+
+			</div>
+		</div>
+	</div>
+	
+	{% embed 'HelloDogBundle:Layout:footer.html.twig' %}
+	  {% block footer %}
+	    {{ parent() }}
+	  {% endblock %}
+	{% endembed %}
+
+	<!-- Modal signUP -->
+	<div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  	<div class="modal-dialog">
+		    <div class="modal-content" ng-app="validate" ng-controller="signinForm">
+		      	<div class="modal-header">
+		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        	<h4 class="modal-title" id="myModalLabel"><i class="glyphicon glyphicon-log-in"></i>&nbsp;Registrarse</h4>
+		      	</div>
+		      	<div class="modal-body">
+		      		<form name="userForm" ng-submit="submitForm()" novalidate>
+		      			{# USERNAME #}
+					  	<div class="form-group" ng-class="{ 'has-error' : userForm.username.$invalid && !userForm.username.$pristine }">
+					  		<label>Nombre</label>
+					    	<input type="text" class="form-control" name="username" placeholder="Usuario" ng-model="user.username" required>
+					    	<p ng-show="userForm.username.$invalid && !userForm.username.$pristine" class="help-block">You name is required.</p>
+					  	</div>
+
+
+					  	{# USERNAME Dog #}
+					  	<div class="form-group" ng-class="{ 'has-error' : userForm.namedog.$invalid && !userForm.namedog.$pristine }">
+					  		<label>Nombre Mascota</label>
+					    	<input type="text" class="form-control" name="namedog" placeholder="Mascota" ng-model="user.namedog" required>
+					    	<p ng-show="userForm.namedog.$invalid && !userForm.namedog.$pristine" class="help-block">You name is required.</p>
+					  	</div>
+
+					  	<hr>
+
+					  	{# EMAIL #}
+					  	<div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+					  		<label>Email</label>
+					    	<input type="email" class="form-control" name="email" placeholder="Email" ng-model="user.email" required>
+					    	<p ng-show="userForm.email.$invalid && !userForm.email.$pristine" class="help-block">Enter a valid email.</p>
+					  	</div>
+
+					  	{# CONFIRM EMAIL #}
+					  	<div class="form-group" ng-class="{ 'has-error' : userForm.confirmEmail.$invalid && !userForm.confirmEmail.$pristine }">
+					    	<input type="email" class="form-control" name="confirmEmail" ng-model="user.confirmEmail" repeat-password="email" placeholder="Confirmar Email" required>
+					    	<p ng-show="userForm.confirmEmail.$invalid && !userForm.confirmEmail.$pristine" class="help-block">Enter a valid email.</p>
+					    	<p class="text-danger" ng-show="userForm.confirmEmail.$dirty && userForm.confirmEmail.$error.dontMatch">Emails don't match!</p>
+					  	</div>
+
+					  	<hr>
+
+					  	{# PASSWORD #}
+					  	<div class="form-group" ng-class="{ 'has-error' : userForm.password.$invalid && !userForm.password.$pristine }">
+					  		<label>Contraseña</label>
+					    	<input type="password" class="form-control" name="password" ng-model="user.password" placeholder="Contraseña" required>
+					    	<p ng-show="userForm.password.$invalid && !userForm.password.$pristine" class="help-block">Enter a valid email.</p>
+					  	</div>
+
+					  	{# CONFIRM PASSWORD #}
+					  	<div class="form-group" ng-class="{ 'has-error' : userForm.confirmPassword.$invalid && !userForm.confirmPassword.$pristine }">
+					    	<input type="password" class="form-control" name="confirmPassword" ng-model="user.confirmPassword" repeat-password="password" placeholder="Confirmar Contraseña" required>
+					    	<p ng-show="userForm.confirmPassword.$invalid && !userForm.confirmPassword.$pristine" class="help-block">Enter a valid email.</p>
+					    	<p class="text-danger" ng-show="userForm.confirmPassword.$dirty && userForm.confirmPassword.$error.dontMatch">Passwords don't match!</p>
+					  	</div>
+
+				      	<div class="modal-footer">
+				        	<button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i>&nbsp;Cerrar</button>
+				        	<button type="submit" class="btn btn-dark" ng-disabled="userForm.$invalid"><i class="glyphicon glyphicon-floppy-disk"></i>&nbsp;Registrar</button>
+			     	 	</div>
+		     	 	</form>
+		      	</div>
+		    </div>
+	  	</div>
+	</div>
+{% endblock %}

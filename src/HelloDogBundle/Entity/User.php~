@@ -32,6 +32,13 @@ class User implements UserInterface, \Serializable
     /**
      * @var string
      *
+     * @ORM\Column(name="namedog", type="string", length=255)
+     */
+    private $namedog;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="email", type="string", length=255)
      */
     private $email;
@@ -160,7 +167,28 @@ class User implements UserInterface, \Serializable
         return $this->role;
     }
 
-    
+    /**
+     * Set createAt
+     *
+     * @param \DateTime $createAt
+     * @return User
+     */
+    public function setCreateAt($createAt)
+    {
+        $this->createAt = $createAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createAt
+     *
+     * @return \DateTime 
+     */
+    public function getCreateAt()
+    {
+        return $this->createAt;
+    }
 
     /**
      * @inheritDoc

@@ -2,11 +2,6 @@
 
 {% block title "Bienvenido" %}
 
-{% block stylesheets %}
-	{{parent()}}
-    <link rel="stylesheet" href="{{ asset('bundles/hellodog/dist/css/footer-sticky.css')}}">
-{% endblock %}
-
 {% block body %}
 	{% embed 'HelloDogBundle:Layout:navbar.html.twig' %}
 	  {% block navbar %}
@@ -14,51 +9,30 @@
 	  {% endblock %}
 	{% endembed %}
 
+	{# incrustar web de bootic #}
+    <div class="video">
+  	  <iframe width="100%" height="800" src="http://hellodog.bootic.net/products" frameborder="0" allowfullscreen></iframe>
+  	</div>
 
-	<div class="container">
-		<div class="row">
-			
 
-			<div class="col-md-6 col-sm-6">
-				<h1 class="text-center">
-					
-					<hr style="border-top: 1px solid transparent;">
-					
-					<h1><strong>Hola, Soy Dog!!</strong></h1>							
-				  	<p style="color:#444;font-size:15px;">
-					Hace un tiempo me adoptaron, mis protectores al principio no sabían
-					con qué alimentarme, Primero fue comida casera o de retail. Mmmm
-					rica!!, pero nada de saludable para un perro con estilo como Yo. Bueno,
-					al poco tiempo supieron de los alimentos balanceados y ricos en
-					proteínas y por fin me alimenté con calidad.</p>
-					<p style="color:#444;font-size:15px;">
-					Pero se encontraron con un problema, el costo de mi nueva
-					alimentación. Buscando encontraron un sitio donde comprar Bueno,
-					Barato, Rápido e Informado. HelloDog!!. Un sitio sólo para nosotros,
-					donde podrás conseguir el mejor alimento del mercado, con excelentes
-					precios, con buen despacho y post venta.
-
-					Un beneficio de pocos, entra y Regístrate en el Club HelloDog, te
-					sorprenderá!!</p>
-
-				  	<div class="modal-footer" style="border-top: 1px solid transparent;">
-						<a type="button" href="{{ path('shop_buy') }}" class="btn btn-yellow">COMPRAR&nbsp;<i class="glyphicon glyphicon-menu-right"></i></a>
-					</div>
-				</h1>
+	<!-- Modal -->
+	<div class="modal fade in" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: block; padding-left: 0px; background-color: rgba(0, 0, 0, 0.7);">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h4 class="modal-title" id="myModalLabel">Bienvenido a HelloDog</h4>
+	      </div>
+	      <div class="modal-body">
+	        <!-- 4:3 aspect ratio -->
+			<div class="embed-responsive embed-responsive-4by3">
+			  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/g_Y6Tdr9j3o?rel=0&autoplay=1"></iframe>
 			</div>
-
-			<div class="col-md-6 col-sm-6 col-xs-2 hidden-xs">
-				<h1>&emsp;</h1>
-				<hr style="border-top: 10px solid transparent;">
-				<img src="{{ asset('bundles/hellodog/dist/images/hellodog_3.png') }}" width="100%">
-			</div>
-
-		</div>
+	      </div>
+	      <div class="modal-footer">
+	        <a href="{{ path('shop_buy') }}" type="button" class="btn btn-dark">Saltar Anuncio</a>
+	      </div>
+	    </div>
+	  </div>
 	</div>
-
-	{% embed 'HelloDogBundle:Layout:footer.html.twig' %}
-	  {% block footer %}
-	    {{ parent() }}
-	  {% endblock %}
-	{% endembed %}
+	
 {% endblock %}

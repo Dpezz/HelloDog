@@ -100,7 +100,7 @@ class AdminController extends Controller
 		        for($j=0; $j<8; $j++){
 		            $key .= $caracteres[rand(0, strlen($caracteres)-1)];
 		        }
-		        $keys[] = $key;
+		        $keys[] = array('clave'=>$key,'active'=>0);
 		    }
 
 		    #create folder and file json

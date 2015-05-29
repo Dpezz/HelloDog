@@ -14,7 +14,6 @@
 			 	<div class="inner cover">
 					
 					<img src="{{ asset('bundles/hellodog/dist/images/hellodog.png') }}" width="50%" height="75%">
-					
 					<hr style="border-top: 1px solid transparent;">
 					
 					<form action="{{ path('check_codigo') }}" method="POST">
@@ -28,9 +27,15 @@
 							<div class="col-md-4 col-sm-4 col-xs-4"></div>
 					  	</div>
 						 
-					  	<p style="color:#ddd;font-size:14px;">Lorem ipsum dolor,<br> consectetur adipiscing elit. <a href="" data-toggle="modal" data-target="#politicas">Políticas y condiciones de uso.</a></p>
+					  	<p style="color:#ddd;font-size:14px;">Lorem ipsum dolor,consectetur adipiscing elit.<br>
+					  	<a href="" data-toggle="modal" data-target="#politicas">Políticas y condiciones de uso.</a>
+					  	
+					  	</p>
 								
+						
 						<button class="btn btn-dark">INGRESAR&nbsp;<i class="glyphicon glyphicon-menu-right"></i></button>
+						<br>
+						<h6 class="text-center">¿No tienes código?<a href="{{ path('demo_login') }}">&nbsp;Volver</a></h6>
 					</form>
 					
 					{% if flag == -2 %}

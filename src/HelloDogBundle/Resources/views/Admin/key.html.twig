@@ -62,7 +62,11 @@
               
               <th>
                 {% for item in value.keys %}
-                &emsp;<small>{{item}}</small>&emsp;
+                  {% if item.active == 1 %}
+                  &emsp;<small class="text-danger">{{item.clave}}</small>&emsp;
+                  {% else %}
+                  &emsp;<small>{{item.clave}}</small>&emsp;
+                  {% endif %}
                 {% endfor %}
               </th>
               <th>

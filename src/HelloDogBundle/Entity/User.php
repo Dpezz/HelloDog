@@ -32,6 +32,13 @@ class User implements UserInterface, \Serializable
     /**
      * @var string
      *
+     * @ORM\Column(name="namedog", type="string", length=255)
+     */
+    private $namedog;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="email", type="string", length=255)
      */
     private $email;
@@ -89,6 +96,29 @@ class User implements UserInterface, \Serializable
     public function getUsername()
     {
         return $this->username;
+    }
+
+    /**
+     * Set namedog
+     *
+     * @param string $namedog
+     * @return User
+     */
+    public function setNamedog($namedog)
+    {
+        $this->namedog = $namedog;
+
+        return $this;
+    }
+
+    /**
+     * Get namedog
+     *
+     * @return string 
+     */
+    public function getNamedog()
+    {
+        return $this->namedog;
     }
 
     /**

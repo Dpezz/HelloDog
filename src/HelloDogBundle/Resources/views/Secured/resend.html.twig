@@ -4,6 +4,7 @@
 
 {% block stylesheets %}
   {{parent()}}
+    <link rel="stylesheet" href="{{ asset('bundles/hellodog/dist/css/images.css')}}">
     <link rel="stylesheet" href="{{ asset('bundles/hellodog/dist/css/footer-sticky.css')}}">
 {% endblock %}
 
@@ -16,41 +17,42 @@
         {% endembed %}
     {% endif %}
     
-    <div class="container">
+    <div class="secured">
+      <div class="container">
 
-      {% embed 'HelloDogBundle:Layout:alert.html.twig' %}
-        {% block alert %}
-          {{ parent() }}
-        {% endblock %}
-      {% endembed %}
+        {% embed 'HelloDogBundle:Layout:alert.html.twig' %}
+          {% block alert %}
+            {{ parent() }}
+          {% endblock %}
+        {% endembed %}
 
-      <h3 class="page-header">Solicitar Contraseña</h3>  
-      <div class="alert alert-danger" role="alert">Ingrese el correo electrónico para enviarle el código de restablecimiento de contraseña</div>
+        <h3 class="page-header">Solicitar Contraseña</h3>  
+        <div class="alert alert-danger" role="alert">Ingrese el correo electrónico para enviarle el código de restablecimiento de contraseña</div>
 
-      {% if app.user %}
-        <form action="{{ path('edit_resend') }}" method="POST">
-      {% else %}
-        <form action="{{ path('edit_resend_public') }}" method="POST">
-      {% endif %}
+        {% if app.user %}
+          <form action="{{ path('edit_resend') }}" method="POST">
+        {% else %}
+          <form action="{{ path('edit_resend_public') }}" method="POST">
+        {% endif %}
 
-        <div class="form-group">
-          <label>Email</label>
-          {% if app.user %}
-            <input type="email" class="form-control" name="email" value="{{ app.user.email }}" placeholder="Email">
-          {% else %}
-            <input type="email" class="form-control" name="email" placeholder="Email">
-          {% endif %}
-        </div>
+          <div class="form-group">
+            <label>Email</label>
+            {% if app.user %}
+              <input type="email" class="form-control" name="email" value="{{ app.user.email }}" placeholder="Email">
+            {% else %}
+              <input type="email" class="form-control" name="email" placeholder="Email">
+            {% endif %}
+          </div>
+              
+          <div class="modal-footer">
+            <a href="{{ path('shop_buy') }}" type="button" class="btn btn-default"><i class="glyphicon glyphicon-arrow-left"></i>&nbsp;Volver</a>
             
-        <div class="modal-footer">
-          <a href="{{ path('shop_buy') }}" type="button" class="btn btn-default"><i class="glyphicon glyphicon-arrow-left"></i>&nbsp;Volver</a>
-          
-          <button type="submit" class="btn btn-dark"><i class="glyphicon glyphicon-send"></i>&nbsp;Enviar</button>
-        </div>
+            <button type="submit" class="btn btn-dark"><i class="glyphicon glyphicon-send"></i>&nbsp;Enviar</button>
+          </div>
 
-	    </form>
-
-  	</div>
+  	    </form>
+    	</div>
+    </div>
 
     {% embed 'HelloDogBundle:Layout:footer.html.twig' %}
       {% block footer %}

@@ -7,6 +7,8 @@ use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 // these import the "@Route" and "@Template" annotations
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -18,12 +20,11 @@ use HelloDogBundle\Entity\User;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/", name="demo_index")
+     * @Route("/codigo", name="demo_codigo")
      * @Method("GET")
      * @Template()
      */
-    public function indexAction(Request $request)
-    {
+    public function codigoAction(Request $request){
         //Asignar el FLAG
         if(!$request->getSession()->get('flag'))
             $request->getSession()->set('flag',-1);
@@ -35,12 +36,11 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/login", name="demo_login")
+     * @Route("/bienvenido", name="demo_welcome")
      * @Method("GET")
      * @Template()
      */
-    public function loginAction(Request $request)
-    {
+    public function welcomeAction(Request $request){
         //Asignar el FLAG
         if(!$request->getSession()->get('flag'))
             $request->getSession()->set('flag',-1);
@@ -48,14 +48,15 @@ class DefaultController extends Controller
         $flag = $request->getSession()->get('flag');
         $request->getSession()->set('flag',-1);
 
-        if($request->getSession()->get('codigo')){
-            if($request->getSession()->get('username')){
-                return new RedirectResponse($this->generateUrl('demo_profile'));
-            }
-        }else{
-            return new RedirectResponse($this->generateUrl('demo_index'));
-        }
+        return array('flag'=>$flag);
+    }
 
+    /**
+     * @Route("/", name="demo_login")
+     * @Method("GET")
+     * @Template()
+     */
+    public function loginAction(Request $request){
         if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
             $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
         } else {
@@ -64,7 +65,6 @@ class DefaultController extends Controller
         return array(
             'last_username' => $request->getSession()->get(SecurityContext::LAST_USERNAME),
             'error'         => $error,
-            'flag' =>   $flag,
         );
     }
 
@@ -89,19 +89,22 @@ class DefaultController extends Controller
      * @Route("/check_codigo", name="check_codigo")
      * @Method("POST")
      */
-    public function codigoAction(Request $request)
+    public function codigoCheck(Request $request)
     {
         $codigo = $request->get('codigo');
 
-        foreach ($this->getJsonKey() as $key => $value) {        
-            if(in_array($codigo,$value['keys'])){
-                $request->getSession()->set('codigo',$codigo);
-                $request->getSession()->set('flag',1);
-                return $this->redirect($this->generateUrl('demo_login'));
+        foreach ($this->getJsonKey() as $key => $value) {  
+            foreach ($value['keys'] as $clave => $valor) {
+                if($valor['clave'] == $codigo){
+                    $request->getSession()->set('codigo',$codigo);
+                    $request->getSession()->set('flag',1);
+                    $this->editJsonKey($codigo);
+                    return $this->redirect($this->generateUrl('demo_welcome'));
+                }
             }
         }
         $request->getSession()->set('flag',-2);
-        return $this->redirect($this->generateUrl('demo_index'));
+        return $this->redirect($this->generateUrl('demo_codigo'));
     }
 
     /**
@@ -122,6 +125,7 @@ class DefaultController extends Controller
                 $username = $request->get('username');
 
                 $user->setUsername($username);
+                $user->setNamedog($request->get('namedog'));
                 $user->setEmail($email);
                 $user->setPassword($request->get('password'));
                 $user->setCreateAt(new \DateTime('now'));
@@ -133,6 +137,19 @@ class DefaultController extends Controller
 
                 $this->sendEmail($username,$email);//enviar email usuario
                 //$this->sendEmailAdmin($username,$email,$fono);//enviar email admin
+
+                // Poner el nombre del firewall de tu aplicación
+                $firewall = 'demo_secured_area';  
+          
+                //puedes sacar así los roles del user  
+                $roles = $user->getRoles();  
+          
+                // Finalmente logueamos al usuario  
+                $token = new UsernamePasswordToken($user, null, $firewall, $roles); 
+                $this->get('security.context')->setToken($token);  
+                $session = $this->get('session');
+                $session->set('_security_'.$firewall,serialize($token));
+
                 $request->getSession()->set('flag',2);
                 return new Response(1);
             }else{
@@ -143,7 +160,6 @@ class DefaultController extends Controller
             $request->getSession()->set('flag',-2);
         }
         return new Response(0);
-        //return $this->redirect($this->generateUrl('demo_login'));
     }
 
     private function getJsonKey(){
@@ -156,8 +172,25 @@ class DefaultController extends Controller
                 return $json['key'];
             }
         }catch(exception $e){
-            //....
         }
         return null;
+    }
+
+    private function editJsonKey($data){
+        $url = "keys/keys.json";
+        if(file_exists($url)){
+            $file = file_get_contents($url);
+            $json = json_decode($file,true);
+
+            foreach ($json['key'] as $key => $value) {
+                foreach ($value['keys'] as $clave => $valor) {
+                    if($valor['clave'] == $data){
+                        $json['key'][$key]['keys'][$clave]['active'] = 1; 
+                    }
+                }
+            }
+            $json = json_encode($json,true);
+            file_put_contents($url, $json);
+        }
     }
 }
